@@ -30,11 +30,10 @@ Configure o banco de dados:
 
 Crie um banco MySQL chamado varanda_cafe e ajuste o arquivo application.properties:
 
-# spring.datasource.url=jdbc:mysql://localhost:3306/varanda_cafe
-# spring.datasource.username=root
-# spring.datasource.password=sua_senha
-#
-spring.jpa.hibernate.ddl-auto=update
+- spring.datasource.url=jdbc:mysql://localhost:3306/varanda_cafe
+- spring.datasource.username=root
+- spring.datasource.password=sua_senha
+- spring.jpa.hibernate.ddl-auto=update
 
 
 Execute a aplicação:
