@@ -18,26 +18,6 @@ Este backend foi implementado em **Java + Spring Boot** e utiliza **MySQL** como
 
 ---
 
-##  Estrutura do Projeto
-
-src/
-├── controller         # Endpoints REST (Pedidos, Produtos, Clientes)
-├── dto               # DTOs para entrada e saída de dados
-├── model
-│   └── entity         # Entidades JPA
-│   └── enums          # Enums (Estado do Pedido, Tipo de Pagamento)
-├── repository         # Interfaces JPA
-├── service
-│   └── bo             # Regras de negócio (BO)
-│   └── factory        # Factory Method das bebidas
-│   └── decorator      # Adicionais aplicados às bebidas
-│   └── strategy       # Estratégia de desconto (pagamento)
-│   └── observer       # Observadores (cozinha e cliente)
-│   └── state          # Estado do pedido
-│   └── command        # Comandos para ações nos pedidos
-├── dao                # DAO com acesso ao banco de dados
-└── config             # WebSocket e inicialização de dados
-
 
  Como executar o projeto localmente
 Clone o repositório:
