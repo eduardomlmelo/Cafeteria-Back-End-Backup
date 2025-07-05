@@ -1,0 +1,40 @@
+// POST /api/clientes
+
+{
+  "email": "cliente@email.com",
+  "senha": "123456",
+  "carteiraDigital": 50.0
+}
+
+
+// POST /api/clientes/login
+
+{
+  "email": "cliente@email.com",
+  "senha": "123456"
+}
+
+
+// POST /api/pedidos
+
+{
+  "idCliente": 1,
+  "tipoPagamento": "{tipo de pagamento}",
+  "itens": [
+    {
+      "bebidaBase": "CAFE",
+      "adicionais": ["LEITE", "ACUCAR"]
+    },
+    {
+      "bebidaBase": "CAPPUCCINO",
+      "adicionais": ["CANELA"]
+    }
+  ]
+}
+
+
+// PUT /api/pedidos/{id}/avancar-estado
+
+PUT http://localhost:8080/api/pedidos/{id_do_pedido}/avancar-estado
+
+
