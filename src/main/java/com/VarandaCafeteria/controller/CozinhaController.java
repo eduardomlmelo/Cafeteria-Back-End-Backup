@@ -16,6 +16,6 @@ public class CozinhaController {
 
     @PutMapping("/{id}/avancar-estado")
     public PedidoResponseDTO avancarEstado(@PathVariable Long id) {
-        return pedidoBO.avancarEstadoDTO(id); // novo método que retorna DTO direto
+        return pedidoBO.avancarEstadoDTO(id);
     }
 }
