@@ -119,7 +119,7 @@ public class PedidoBO {
 
 
         // ⏺ Adiciona observers
-        pedido.adicionarObservador(new CozinhaObserver());
+        pedido.adicionarObservador(new CozinhaObserver(messagingTemplate, this));
         pedido.adicionarObservador(new ClienteObserver(cliente.getId()));
         pedido.notificarObservadores();
 
