@@ -22,5 +22,10 @@ public class CozinhaObserver implements PedidoObserver {
 
 
         System.out.println("Cozinha notificada: Novo pedido #" + pedido.getId() + " criado ou atualizado!");
+
+        // 📦 Objeto completo para renderizar o pedido novo
+        PedidoResponseDTO dto = pedidoBO.toResponseDTO(pedido);
+        messagingTemplate.convertAndSend("/topic/cozinha/novo-pedido", dto);
+
     }
 }
