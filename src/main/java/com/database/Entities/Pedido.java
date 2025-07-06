@@ -17,7 +17,6 @@ public class Pedido {
     @JoinColumn(name = "id_item")
     private Item item;
 
-
     // Getters e setters
 
     public Integer getId() {
@@ -38,5 +37,9 @@ public class Pedido {
 
     public Item getItem() {
         return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 }

@@ -22,9 +22,7 @@ public class Item {
     )
     private Set<Adicional> adicionais;
 
-
-    // Getters e setters * --> verificar modificadores de acesso
-
+    // Getters e setters
 
     public Integer getId() {
         return id;
@@ -54,4 +52,7 @@ public class Item {
         return adicionais;
     }
 
+    public void setAdicionais(Set<Adicional> adicionais) {
+        this.adicionais = adicionais;
+    }
 }
