@@ -1,5 +1,6 @@
 package com.VarandaCafeteria.model.entity;
 
+import com.VarandaCafeteria.model.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +18,8 @@ public class Cliente {
     private String email;
     private String senha;
     private Double carteiraDigital;
-    @OneToMany
-    (mappedBy = "cliente") private List<Pedido> pedidos;
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

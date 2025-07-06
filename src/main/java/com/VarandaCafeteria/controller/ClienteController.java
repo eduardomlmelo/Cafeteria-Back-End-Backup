@@ -1,19 +1,19 @@
 package com.VarandaCafeteria.controller;
 
-import com.VarandaCafeteria.dto.CarteiraResponseDTO;
-import com.VarandaCafeteria.dto.ClienteLoginDTO;
-import com.VarandaCafeteria.dto.ClienteRequestDTO;
-import com.VarandaCafeteria.dto.ClienteResponseDTO;
+import com.VarandaCafeteria.dto.*;
 import com.VarandaCafeteria.model.entity.Cliente;
 import com.VarandaCafeteria.dao.ClienteDAO;
 
 import com.VarandaCafeteria.repository.ClienteRepository;
+import com.VarandaCafeteria.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -26,6 +26,9 @@ public class ClienteController {
     @Autowired
     private ClienteRepository clienteRepository;
 
+    @Autowired
+    JwtUtil jwtUtil;
+
     /**
      * Cadastro de novo cliente
      */
@@ -35,6 +38,7 @@ public class ClienteController {
         cliente.setEmail(dto.getEmail());
         cliente.setSenha(dto.getSenha());
         cliente.setCarteiraDigital(dto.getCarteiraDigital());
+        cliente.setRole(dto.getRole());
 
         Cliente salvo = clienteRepository.save(cliente);
 
@@ -45,18 +49,30 @@ public class ClienteController {
     }
 
     /**
-     * Login simples (sem autenticação real por enquanto)
+     * Login JWT
      */
     @PostMapping("/login")
-    public ResponseEntity<ClienteResponseDTO> login(@RequestBody ClienteLoginDTO loginDTO) {
-        Cliente cliente = clienteRepository.findByEmailAndSenha(loginDTO.getEmail(), loginDTO.getSenha())
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody ClienteLoginDTO dto) {
+        Cliente cliente = clienteRepository.findByEmailAndSenha(dto.getEmail(), dto.getSenha())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciais inválidas"));
 
-        ClienteResponseDTO dto = new ClienteResponseDTO();
-        dto.setId(cliente.getId());
-        dto.setEmail(cliente.getEmail());
-        return ResponseEntity.ok(dto);
+        if (cliente.getRole() == null) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Usuário sem role definida");
+        }
+
+        String token = jwtUtil.generateToken(cliente.getEmail(), cliente.getRole().name());
+        return ResponseEntity.ok(new LoginResponseDTO(token, cliente.getRole().name()));
     }
+
+//    @PostMapping("/login")
+//    public ResponseEntity<Map<String, String>> login(@RequestBody ClienteLoginDTO dto) {
+//        Map<String, String> body = new HashMap<>();
+//        body.put("token", "token-de-teste");
+//        body.put("role", "CLIENTE");
+//        return ResponseEntity.ok(body);
+//    }
+
+
 
     /**
      * Consulta o saldo da carteira digital de um cliente
